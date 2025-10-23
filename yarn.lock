@@ -1925,6 +1925,11 @@ baseline-browser-mapping@^2.8.19:
   resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.8.19.tgz#8d99bb7f06bc6ea5c9c1b961e631a1713069bbe0"
   integrity sha512-zoKGUdu6vb2jd3YOq0nnhEDQVbPcHhco3UImJrv5dSkvxTc2pl2WjOPsjZXDwPDSl5eghIMuY3R6J9NDKF3KcQ==
 
+bats@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/bats/-/bats-1.12.0.tgz#3ed99170325141e5d6dd53a84c3e5a702d5ab5be"
+  integrity sha512-1HTv2n+fjn3bmY9SNDgmzS6bjoKtVlSK2pIHON5aSA2xaqGkZFoCCWP46/G6jm9zZ7MCi84mD+3Byw4t3KGwBg==
+
 bl@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/bl/-/bl-4.1.0.tgz#451535264182bec2fbbc83a62ab98cf11d9f7b3a"
