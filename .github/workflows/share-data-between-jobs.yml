@@ -6,7 +6,7 @@ jobs:
         steps:
             - shell: bash
               run: |
-                expr 3 + 7 > mth-homework.txt
+                expr 3 + 7 > math-homework.txt
             - name: Upload math result for job 1
               uses: actions/upload-artifact@v4
               with:
