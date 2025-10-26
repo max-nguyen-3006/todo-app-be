@@ -6,6 +6,7 @@ jobs:
         steps:
             - shell: bash
               run: |
+                date -u
                 expr 3 + 7 > math-homework.txt
             - name: Upload math result for job 1
               uses: actions/upload-artifact@v4
@@ -23,6 +24,7 @@ jobs:
                  name: homework_pre
             - shell: bash
               run: |
+                date -u
                 value=$(cat math-homework.txt | tr -d '\r\n')
                 expr $value \* 9 > math-homework.txt
 
@@ -43,6 +45,7 @@ jobs:
             - name: Print the final result
               shell: bash
               run: |
+               date -u
                value=`cat math-homework.txt`
                echo "The final result is $value"
               
