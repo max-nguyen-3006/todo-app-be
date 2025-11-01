@@ -52,21 +52,27 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Clone deploy repo
-        env: 
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git clone https://max-nguyen-3006:${{ secrets.GH_PAT }}@github.com/max-nguyen-3006/devops-playground-deploy.git
           cd devops-playground-deploy/node/be
 
-          # Update the image tag in deployment.yaml
-          sed -i "s|image: .*|image: $IMAGE|" deployment.yaml
+          echo "Before update:"
+          cat deployment.yaml
+          echo "IMAGE = $IMAGE"
 
+          # Update the image tag in deployment.yaml
+          echo "IMAGE value: $IMAGE"
+          sed -i "s|^[[:space:]]*image:.*|        image: $IMAGE|" deployment.yaml
+          echo "After update:"
+          cat deployment.yaml
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add deployment.yaml
           git commit -m "Update BE image tag to $IMAGE"
           git push
 
+        env:
+          IMAGE: ${{ steps.meta.outputs.tags }}  
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v3
         with:
