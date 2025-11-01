@@ -58,7 +58,7 @@ jobs:
           git clone https://github.com/max-nguyen-3006/devops-playground-deploy.git
           cd devops-playground-deploy/node/be
 
-          // Update the image tag in deployment.yaml
+          # Update the image tag in deployment.yaml
           sed -i "s|image: .*|image: $IMAGE|" deployment.yaml
 
           git config user.name "github-actions"
