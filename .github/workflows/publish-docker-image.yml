@@ -75,7 +75,7 @@ jobs:
           else
             git add deployment.yaml
             git commit -m "Update BE image tag to $IMAGE"
-            it push
+            git push
           fi
           
         env:
