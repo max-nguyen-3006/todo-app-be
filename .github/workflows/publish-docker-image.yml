@@ -40,6 +40,9 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: 300698/github-action
+          tags: |
+            type=raw,value=main
+            type=sha,format=short,prefix=main-
 
       - name: Build and push Docker image
         id: push
@@ -67,12 +70,16 @@ jobs:
           cat deployment.yaml
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add deployment.yaml
-          git commit -m "Update BE image tag to $IMAGE"
-          git push
-
+          if git diff --quiet; then
+            echo "No changes to commit"
+          else
+            git add deployment.yaml
+            git commit -m "Update BE image tag to $IMAGE"
+            it push
+          fi
+          
         env:
-          IMAGE: ${{ steps.meta.outputs.tags }}  
+          IMAGE: 300698/github-action:main-${{ github.sha }}  
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v3
         with:
