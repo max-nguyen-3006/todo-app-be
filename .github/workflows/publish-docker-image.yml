@@ -57,32 +57,58 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      # - name: Clone deploy repo
+      #   run: |
+      #     git clone https://max-nguyen-3006:${{ secrets.GH_PAT }}@github.com/max-nguyen-3006/devops-playground-deploy.git
+      #     cd devops-playground-deploy/node/be/base
+
+      #     echo "Before update:"
+      #     cat deployment.yaml
+      #     echo "IMAGE = $IMAGE"
+
+      #     # Update the image tag in deployment.yaml
+      #     echo "IMAGE value: $IMAGE"
+      #     sed -i "s|^[[:space:]]*image:.*|        image: $IMAGE|" deployment.yaml
+      #     echo "After update:"
+      #     cat deployment.yaml
+      #     git config user.name "github-actions"
+      #     git config user.email "actions@github.com"
+      #     if git diff --quiet; then
+      #       echo "No changes to commit"
+      #     else
+      #       git add deployment.yaml
+      #       git commit -m "Update BE image tag to $IMAGE"
+      #       git push
+      #     fi
+          
+      #   env:
+      #     IMAGE: 300698/github-action:main-${{ env.SHORT_SHA }}
+
       - name: Clone deploy repo
         run: |
           git clone https://max-nguyen-3006:${{ secrets.GH_PAT }}@github.com/max-nguyen-3006/devops-playground-deploy.git
-          cd devops-playground-deploy/node/be/base
+        shell: bash
 
-          echo "Before update:"
-          cat deployment.yaml
-          echo "IMAGE = $IMAGE"
-
-          # Update the image tag in deployment.yaml
-          echo "IMAGE value: $IMAGE"
-          sed -i "s|^[[:space:]]*image:.*|        image: $IMAGE|" deployment.yaml
-          echo "After update:"
-          cat deployment.yaml
+      - name: Update image tag in overlay
+        run: |
+          cd devops-playground-deploy/node/be/overlays/local
+    
+          # Set image tag mới từ Docker SHA
+          kustomize edit set image 300698/github-action=${IMAGE}
+    
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+
           if git diff --quiet; then
             echo "No changes to commit"
           else
-            git add deployment.yaml
-            git commit -m "Update BE image tag to $IMAGE"
+            git add kustomization.yaml
+            git commit -m "Update BE image tag to ${IMAGE##*:}"
             git push
           fi
-          
         env:
           IMAGE: 300698/github-action:main-${{ env.SHORT_SHA }}
+        shell: bash
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v3
         with:
