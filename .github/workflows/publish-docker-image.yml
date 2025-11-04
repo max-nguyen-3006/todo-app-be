@@ -60,7 +60,7 @@ jobs:
       - name: Clone deploy repo
         run: |
           git clone https://max-nguyen-3006:${{ secrets.GH_PAT }}@github.com/max-nguyen-3006/devops-playground-deploy.git
-          cd devops-playground-deploy/node/be
+          cd devops-playground-deploy/node/be/base
 
           echo "Before update:"
           cat deployment.yaml
