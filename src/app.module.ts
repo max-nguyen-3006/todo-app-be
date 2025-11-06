@@ -11,7 +11,7 @@ import { Task } from './task/entities/task.entity';
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'db',
+      host: 'devops-playground-postgres-service',
       port: 5432,
       username: 'postgres',
       password: 'postgres',
