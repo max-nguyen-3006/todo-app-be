@@ -8,13 +8,14 @@ import { Task } from './task/entities/task.entity';
 import { ConflictEntity } from 'src/demo-conflict/entities/conflict.entity';
 import { ConflictService } from 'src/demo-conflict/conflict.service';
 import { ConflictModule } from 'src/demo-conflict/conflict.module';
+import { MetricsModule } from 'src/metrics/metrics.module';
 
 @Module({
   imports: [ConfigModule.forRoot(),
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'devops-playground-postgres-service',  //'db' 
+      host:  'devops-playground-postgres-service',  //'db',  
       port: 5432,
       username: 'postgres',
       password: 'postgres',
@@ -23,7 +24,8 @@ import { ConflictModule } from 'src/demo-conflict/conflict.module';
       //synchronize: true, 
     }),
     TaskModule,
-    ConflictModule
+    ConflictModule,
+    MetricsModule
   ],
   controllers: [AppController],
   providers: [AppService],
