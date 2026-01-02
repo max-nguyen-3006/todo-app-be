@@ -15,7 +15,7 @@ import { MetricsModule } from 'src/metrics/metrics.module';
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host:  'devops-playground-postgres-service',  //'db',  
+      host:  process.env.DB_HOST || 'localhost',
       port: 5432,
       username: 'postgres',
       password: 'postgres',
