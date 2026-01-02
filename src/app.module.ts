@@ -10,12 +10,15 @@ import { ConflictService } from 'src/demo-conflict/conflict.service';
 import { ConflictModule } from 'src/demo-conflict/conflict.module';
 import { MetricsModule } from 'src/metrics/metrics.module';
 
+const dbHost = process.env.DB_HOST || 'localhost';
+console.log('DB_HOST =', dbHost);
+
 @Module({
   imports: [ConfigModule.forRoot(),
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host:  process.env.DB_HOST || 'localhost',
+      host: dbHost,
       port: 5432,
       username: 'postgres',
       password: 'postgres',
