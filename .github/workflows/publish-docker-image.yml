@@ -91,9 +91,10 @@ jobs:
 
       - name: Update image tag in overlay
         run: |
-          cd devops-playground-deploy/node/be/overlays/local
+          #cd devops-playground-deploy/node/be/overlays/local
+          cd devops-playground-deploy/node/be/base
     
-          # Set image tag mới từ Docker SHA
+          # Set new image tag from Docker SHA
           kustomize edit set image 300698/github-action=${IMAGE}
     
           git config user.name "github-actions"
